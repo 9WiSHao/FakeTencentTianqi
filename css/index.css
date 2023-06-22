@@ -1,0 +1,348 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #f4f4f4;
+}
+
+/* 临时 */
+img {
+	height: 20px;
+}
+/* 临时 */
+
+.main-page {
+	width: 100vw;
+	height: 64vh;
+	margin-bottom: 1vh;
+	position: relative;
+	background-color: #fff;
+	border-bottom: 1px solid #e4e4e4;
+}
+
+.air-quality,
+.high-temperature-warning {
+	position: absolute;
+}
+
+.main-page > .top {
+	position: relative;
+	width: 100vw;
+	height: 52vh;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #fff;
+	z-index: 5;
+}
+
+.main-page > .top > .background123,
+.main-page > .top > .background4,
+.main-page > .top > .gradient {
+	position: absolute;
+	width: 100vw;
+	height: 52vh;
+}
+.main-page > .top > .background123 {
+	background-image: url(../images/bg02.png), url(../images/bg03.png), url(../images/bg01.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: 0 100%;
+	z-index: -3;
+}
+.main-page > .top > .background4 {
+	background-image: url(../images/bg04.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: 0 100%;
+	z-index: -1;
+}
+
+.main-page > .top > .gradient {
+	background-image: linear-gradient(rgba(80, 173, 232, 1), 70%, rgb(255, 255, 255, 0));
+	z-index: -2;
+}
+
+.main-page > .top > .location {
+	width: 100vw;
+	height: 5vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.main-page > .top > .location > .back {
+	height: 100%;
+	width: 10vw;
+	background-image: url(../images/arrow.png);
+	background-size: 100% 100%;
+}
+
+.main-page > .top > .location > .share {
+	height: 60%;
+	width: 6vw;
+	background-image: url(../images/link_icon.png);
+	background-size: 100% 100%;
+	margin-right: 8px;
+}
+
+.main-page > .top > .location > .location-word > img {
+	height: 2vh;
+	padding-top: 0.5vh;
+	padding-right: 2px;
+}
+
+.main-page > .top > .latest-release {
+	font-size: xx-small;
+	height: 1.8vh;
+	transform: translateY(-1vh);
+	overflow: hidden;
+}
+
+.main-page > .top > .latest-release div {
+	animation: opacity 10s linear 1 forwards;
+}
+
+.opacity-animation {
+	animation: opacity 5s linear infinite;
+}
+
+@keyframes opacity {
+	0% {
+		opacity: 1;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.main-page > .top > .temperature {
+	font-size: 7vh;
+	margin-top: 5vh;
+}
+
+.main-page > .top > .weather {
+	font-size: 3vh;
+}
+
+.main-page > .top > .humidity-wind {
+	margin-top: 1vh;
+	height: 2vh;
+	width: 20vw;
+	font-size: small;
+	overflow: hidden;
+	position: relative;
+}
+.main-page > .top > .humidity-wind > .humidity,
+.main-page > .top > .humidity-wind > .wind {
+	position: absolute;
+	animation: scroll-up 10s linear infinite;
+}
+.main-page > .top > .humidity-wind > .humidity {
+	width: 14vw;
+	margin-left: 15%;
+}
+.main-page > .top > .humidity-wind > .wind {
+	width: 16vw;
+	margin-left: 10%;
+
+	transform: translateY(100%);
+	animation-delay: 5s; /* 风向动画延迟，确保湿度消失后开始 */
+}
+@keyframes scroll-up {
+	0% {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+	5% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	50% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	55% {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+}
+
+.main-page > .top > .greeting {
+	margin-top: 5vh;
+}
+
+.main-page > .bottom {
+	width: 100vw;
+	height: 12vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 5vw;
+}
+
+.main-page > .bottom > .today,
+.main-page > .bottom > .tomorrow {
+	height: 8vh;
+	width: 40vw;
+}
+
+.main-page > .bottom > .today > .today-weather,
+.main-page > .bottom > .today > .today-temperature,
+.main-page > .bottom > .tomorrow > .tomorrow-weather,
+.main-page > .bottom > .tomorrow > .tomorrow-temperature {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1vh;
+}
+
+.main-page > .bottom > .line {
+	width: 1px;
+	height: 8vh;
+	background-color: #f0f0f0;
+}
+
+.real-time-weather {
+	height: 15vh;
+	background-color: #fff;
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	margin-bottom: 1vh;
+	display: flex;
+	align-items: center;
+}
+
+.real-time-weather > div {
+	height: 10vh;
+	width: 8vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+.real-time-weather > div > .time {
+	font-size: xx-small;
+	color: #999;
+}
+.real-time-weather > div > img {
+	height: 3vh;
+}
+
+.weather-forecast {
+	width: 100vw;
+	height: 44vh;
+	background-color: #fff;
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	margin-bottom: 1vh;
+}
+
+.weather-forecast > .day {
+	height: 11vh;
+	margin-top: 3vh;
+	display: flex;
+}
+
+.weather-forecast > .day > div,
+.weather-forecast > .night > div {
+	width: 18vw;
+	height: 11vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.weather-forecast > .day > div > .day-text,
+.weather-forecast > .day > div > .day-date,
+.weather-forecast > .night > div > .wind-direction,
+.weather-forecast > .night > div > .wind-power {
+	font-size: xx-small;
+	color: #999;
+}
+.weather-forecast > .day > div > .day-date {
+	margin-top: -1vh;
+}
+.weather-forecast > .night > div > .wind-direction {
+	margin-bottom: -1vh;
+}
+.weather-forecast > .day > div > img,
+.weather-forecast > .night > div > img {
+	height: 3vh;
+}
+
+.weather-forecast > .middle {
+	height: 16vh;
+}
+
+.weather-forecast > .night {
+	height: 11vh;
+	margin-bottom: 3vh;
+}
+
+.activities-suggested {
+	height: 20vh + 2px;
+	width: 100vw;
+	overflow: auto;
+	background-color: #fff;
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	margin-bottom: 1vh;
+}
+
+.activities-suggested > table {
+	width: 200vw;
+	table-layout: fixed;
+}
+
+.activities-suggested td {
+	height: 10vh;
+	width: 25vw;
+	border-right: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+}
+.activities-suggested td:last-child {
+	border-right: none;
+}
+.activities-suggested tr:last-child td {
+	border-bottom: none;
+}
+
+.activities-suggested td > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.activities-suggested td > div > img {
+	height: 3vh;
+	margin-bottom: 1vh;
+}
+.activities-suggested td > div > .active {
+	font-size: x-small;
+	color: gray;
+}
+
+.about {
+	width: 100vw;
+	height: 5vh;
+	margin-bottom: 2vh;
+
+	font-size: small;
+	color: #b2b2b2;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
