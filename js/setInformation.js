@@ -134,8 +134,8 @@ export class SetInformation {
 
 		this.weatherForecastDay0DOM.querySelector('.day-date').innerHTML = '是昨天吧';
 		this.weatherForecastDay0DOM.querySelector('.day-weather').innerHTML = '我不道啊';
-		this.weatherForecastDay0DOM.querySelector('img').src = '../images/unknow.png';
-		this.weatherForecastNighy0DOM.querySelector('img').src = '../images/unknow.png';
+		this.weatherForecastDay0DOM.querySelector('img').src = './images/unknow.png';
+		this.weatherForecastNighy0DOM.querySelector('img').src = './images/unknow.png';
 		this.weatherForecastNighy0DOM.querySelector('.night-weather').innerHTML = '我不道啊';
 		this.weatherForecastNighy0DOM.querySelector('.wind-direction').innerHTML = '啥啥风';
 		this.weatherForecastNighy0DOM.querySelector('.wind-power').innerHTML = '114514级';
@@ -305,7 +305,7 @@ export class SetInformation {
 			html1 += `
         <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
           <div>
-            <img src="../images/indices/${i + 1}.png" alt="" />
+            <img src="./images/indices/${i + 1}.png" alt="" />
             <div class="suggest">${json.daily[i].category}</div>
             <div class="active">${json.daily[i].name}</div>
           </div>
@@ -317,7 +317,7 @@ export class SetInformation {
 			html2 += `
         <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
           <div>
-            <img src="../images/indices/${i + 1}.png" alt="" />
+            <img src="./images/indices/${i + 1}.png" alt="" />
             <div class="suggest">${json.daily[i].category}</div>
             <div class="active">${json.daily[i].name}</div>
           </div>
@@ -364,9 +364,9 @@ export class SetInformation {
 		if (time == 'day') {
 			switch (weather) {
 				case '晴':
-					return '../images/day/qing.png';
+					return './images/day/qing.png';
 				case '阴':
-					return '../images/day/yin.png';
+					return './images/day/yin.png';
 				case '雨':
 				case '小雨':
 				case '中雨':
@@ -376,21 +376,21 @@ export class SetInformation {
 				case '特大暴雨':
 				case '阵雨':
 				case '极端降雨':
-					return '../images/day/yu.png';
+					return './images/day/yu.png';
 				case '雷阵雨':
-					return '../images/thunderstorms.svg';
+					return './images/thunderstorms.svg';
 				case '多云':
-					return '../images/day/yun.png';
+					return './images/day/yun.png';
 				default:
-					return '../images/unknow.png';
+					return './images/unknow.png';
 			}
 		}
 		if (time == 'night') {
 			switch (weather) {
 				case '晴':
-					return '../images/night/qing.png';
+					return './images/night/qing.png';
 				case '阴':
-					return '../images/night/yin.png';
+					return './images/night/yin.png';
 				case '雨':
 				case '小雨':
 				case '中雨':
@@ -400,20 +400,20 @@ export class SetInformation {
 				case '特大暴雨':
 				case '阵雨':
 				case '极端降雨':
-					return '../images/night/yu.png';
+					return './images/night/yu.png';
 				case '雷阵雨':
-					return '../images/thunderstorms.svg';
+					return './images/thunderstorms.svg';
 				case '多云':
-					return '../images/night/yun.png';
+					return './images/night/yun.png';
 				default:
-					return '../images/unknow.png';
+					return './images/unknow.png';
 			}
 		}
 		if (time == 'sunset') {
-			return '../images/set.png';
+			return './images/set.png';
 		}
 		if (time == 'sunrise') {
-			return '../images/rise.png';
+			return './images/rise.png';
 		}
 	};
 
