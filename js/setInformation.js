@@ -152,6 +152,7 @@ export class SetInformation {
 		this.weatherForecastDayDOM.insertAdjacentHTML('beforeend', dayHTML);
 		this.weatherForecastNighyDOM.insertAdjacentHTML('beforeend', nightHTML);
 
+		// 需要渲染的数据（两组7天的早晚温度）
 		let dayTemperature = [];
 		let nightTemperature = [];
 		json.daily.forEach((item, index) => {
@@ -159,9 +160,7 @@ export class SetInformation {
 			nightTemperature[index] = parseInt(item.tempMin);
 		});
 		// 此处开始制作图表
-
 		let myChart = echarts.init(this.weatherForecastMiddle);
-
 		// 指定图表的配置项和数据
 		let option = {
 			tooltip: {
@@ -169,23 +168,23 @@ export class SetInformation {
 			},
 			xAxis: {
 				type: 'category',
-				data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], // 这里假设你有12个小时的数据
+				data: ['1', '2', '3', '4', '5', '6', '7'], // 7个数据
 				show: false, // 隐藏x轴
 			},
 			yAxis: {
 				type: 'value',
-				min: Math.min(...dayTemperature, ...nightTemperature), // 这里我们设置y轴最小值为两组温度数据中的最小值
+				min: Math.min(...dayTemperature, ...nightTemperature), // 设置y轴最小值为两组温度数据中的最小值
 				show: false, // 隐藏y轴
 			},
 			grid: {
 				// 网格配置
 				show: false, // 隐藏网格线
 
-				left: '60', // 距离容器左侧的距离
+				left: '10%', // 距离容器左侧的距离
 				right: '0', // 距离容器右侧的距离
 				top: '20', // 距离容器顶部的距离
 				bottom: '20', // 距离容器底部的距离
-				containLabel: true, // 是否包含坐标轴的标签，如果你的标签被切掉，可以设置此项为true
+				containLabel: true, // 是否包含坐标轴的标签
 			},
 			series: [
 				{
@@ -198,9 +197,9 @@ export class SetInformation {
 						formatter: '{c}°',
 					},
 					lineStyle: {
-						color: '#ffb74d', // 你可以根据需要更改折线的颜色
+						color: '#ffb74d', // 折线颜色
 					},
-					smooth: true, // 这会使折线平滑
+					smooth: true, // 折线平滑
 					symbol: 'circle', // 设置点的形状
 					itemStyle: {
 						color: '#ffb74d', // 设置点的颜色
@@ -229,15 +228,17 @@ export class SetInformation {
 						color: '#000000', // 设置标签颜色为黑色
 					},
 					lineStyle: {
-						color: '#4fc3f7', // 你可以根据需要更改折线的颜色
+						color: '#4fc3f7', // 折线颜色
 					},
-					smooth: true, // 这会使折线平滑
+					smooth: true, // 折线平滑
 				},
 			],
 		};
 
 		myChart.setOption(option);
-		// myChart.resize();
+		window.addEventListener('resize', () => {
+			myChart.resize();
+		});
 	};
 
 	#setWeather24h = async (data) => {
