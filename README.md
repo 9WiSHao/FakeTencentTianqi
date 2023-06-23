@@ -25,4 +25,5 @@
 - api: [和风天气 API](https://dev.qweather.com/)
 - 原生 js 完成
 - 功能由类封装功能，然后监听 hash 变化，传入新数据
-- 上传至 github page 页面，可访问
+- 上传至 github page 页面，https://wishao.me/FakeTencentTianqi/ 因为用了module，所以在本地运行的话需要用live server插件打开
+  （但是刚发现gh-page上的图都有路径bug，过会我改改）
