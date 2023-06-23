@@ -301,28 +301,24 @@ export class SetInformation {
 		let json = await res.json();
 
 		let html1 = '';
-		for (let i = 0; i < 8; i++) {
-			html1 += `
-        <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
-          <div>
-            <img src="./images/indices/${i + 1}.png" alt="" />
-            <div class="suggest">${json.daily[i].category}</div>
-            <div class="active">${json.daily[i].name}</div>
-          </div>
-        </td>
-      `;
-		}
 		let html2 = '';
-		for (let i = 8; i < 16; i++) {
-			html2 += `
+		for (let i = 0; i < 16; i++) {
+			let nameClass = json.daily[i].name.length > 6 ? 'active marquee-text' : 'active';
+			let html = `
         <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
           <div>
             <img src="./images/indices/${i + 1}.png" alt="" />
             <div class="suggest">${json.daily[i].category}</div>
-            <div class="active">${json.daily[i].name}</div>
+            <div class="${nameClass}">${json.daily[i].name}</div>
           </div>
         </td>
       `;
+
+			if (i < 8) {
+				html1 += html;
+			} else {
+				html2 += html;
+			}
 		}
 		this.activitiesSuggestedTrDOMall[0].innerHTML = html1;
 		this.activitiesSuggestedTrDOMall[1].innerHTML = html2;
