@@ -73,21 +73,15 @@ export class Search {
 	};
 
 	#mainSearch = () => {
-		// 放一个标志来判断是不是点击了搜索建议，防止点击搜索建议的时候，输入框失去焦点，就直接关了搜索
-		let clickedSuggestion = false;
-
 		this.searchInputDOM.addEventListener('focus', () => {
 			this.searchMainDOM.style.display = 'none';
 			this.searchSuggestDOM.style.display = 'block';
 		});
 		this.searchInputDOM.addEventListener('blur', () => {
-			// 此处用setTimeout是因为，点击搜索建议的时候，会触发blur事件，但是点击搜索建议的时候，会触发click事件，所以用setTimeout来延迟执行，如果点击了搜索建议，就不执行这个函数
+			// 此处用setTimeout是因为，想点搜索建议的时候，就失焦了，会触发blur事件，一触发就把建议弄没了，所以用setTimeout来延迟执行。但是建议完之后还是得回去的，所以还是得要
 			setTimeout(() => {
-				if (!clickedSuggestion) {
-					this.searchMainDOM.style.display = 'block';
-					this.searchSuggestDOM.style.display = 'none';
-				}
-				clickedSuggestion = false;
+				this.searchMainDOM.style.display = 'block';
+				this.searchSuggestDOM.style.display = 'none';
 			}, 100);
 		});
 
@@ -125,7 +119,7 @@ export class Search {
 			if (!e.target.classList.contains('suggest1')) {
 				return;
 			}
-			clickedSuggestion = true;
+			// clickedSuggestion = true;
 			let cityCode = e.target.dataset.cityCode;
 			let cityName = e.target.innerText;
 			window.location.hash = cityCode;
@@ -135,11 +129,9 @@ export class Search {
 			// 这是把搜索页面上拉回去
 			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
 			this.mainDOM.style.display = 'block';
-			// 回初始搜索页面
-			this.searchMainDOM.style.display = 'block';
-			this.searchSuggestDOM.style.display = 'none';
 
 			this.cityNameDOM.innerText = cityName;
+			this.searchInputDOM.value = '';
 		});
 	};
 

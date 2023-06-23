@@ -42,6 +42,7 @@ export class SetInformation {
 		this.suggestDialogButtonDOM = document.querySelector('.suggest-dialog .ok');
 		this.maskDOM = document.querySelector('.gary-mask');
 
+		// 点击下面的生活指数，弹出对话框
 		this.activitiesSuggestedDOM.addEventListener('click', (e) => {
 			if (!e.target.closest('.indices1')) {
 				return;
@@ -58,14 +59,17 @@ export class SetInformation {
 			this.maskDOM.style.display = 'block';
 			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
 		});
-
+		// 退出对话框按钮
 		this.suggestDialogButtonDOM.addEventListener('click', () => {
 			this.suggestDialogButtonDOM.style.backgroundColor = '#9ABFBA';
 
-			this.maskDOM.style.display = 'none';
 			this.suggestDialogDOM.style.animation = 'scroll-down3 0.3s ease-in-out';
+			// 这个延迟本来是为了等向下移动动画放完再消失。但是现在又把遮罩消失也加了延时
+			// 是有原因的，本来遮罩是立刻消失的，但是就有bug了，万一手够快，对话框退出动画还没走完就又点了一回
+			// 这样会出现遮罩出来了，但是对话框走完0.3秒还是消失，就只有遮罩没对话框，卡在这很尴尬。所以干遮罩也加了延时，有遮罩就点不了了
 			setTimeout(() => {
 				this.suggestDialogDOM.style.display = 'none';
+				this.maskDOM.style.display = 'none';
 			}, 300);
 		});
 	}
