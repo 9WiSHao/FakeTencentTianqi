@@ -31,8 +31,7 @@ img {
 
 .air-quality {
 	z-index: 10;
-	height: 6vh;
-	width: 10vw;
+	padding: 1vh;
 	border-radius: 12px;
 	background-color: #a3d765;
 	color: #fff;
