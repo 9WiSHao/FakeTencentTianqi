@@ -5,207 +5,243 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"">
 		<title>FakeTencentTianqi</title>
 		<link rel="stylesheet" href="./css/index.css" />
+		<link rel="stylesheet" href="./css/search.css" />
 	</head>
 	<body>
-		<div class="search"></div>
-		<div class="main-page">
-			<div class="air-quality"></div>
-			<div class="high-temperature-warning"></div>
-			<div class="top">
-				<div class="background123"></div>
-				<div class="gradient"></div>
-				<div class="background4"></div>
-				<div class="location">
-					<div class="back"></div>
-					<div class="location-word">
-						<img src="./images/location.png" alt="" />
-						<span>东京市 下北泽</span>
-					</div>
-					<div class="share"></div>
+		<div class="search">
+			<div class="search-top">
+				<div class="input">
+					<img src="./images/search.svg" alt="" />
+					<input type="text" placeholder="搜索 地区" />
 				</div>
-				<div class="latest-release"><div>默认数据 加载中111111111</div></div>
-				<div class="temperature">11°</div>
-				<div class="weather">晴</div>
-				<div class="humidity-wind">
-					<div class="humidity">湿度 45%</div>
-					<div class="wind">东南风 1级</div>
-				</div>
-				<div class="greeting">圣地巡礼</div>
+				<div class="cancel">取消</div>
 			</div>
-			<div class="bottom">
-				<div class="today">
-					<div class="today-weather">
-						<span>今天</span>
-						<span class="today-temperature">10/19°</span>
+			<div class="search-body">
+				<div class="search-main">
+					<div class="history">
+						<div class="title">
+							<div>历史记录</div>
+							<img src="./images/delete.svg" alt="" />
+						</div>
+						<div class="place">
+							<div class="place1">重庆</div>
+						</div>
 					</div>
-					<div class="today-temperature">
-						<div>晴转阴</div>
+					<div class="hot">
+						<div class="title">热门城市</div>
+						<div class="place">
+							<div class="place1">北京</div>
+						</div>
+					</div>
+				</div>
+				<div class="search-suggest"></div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="main-page">
+				<div class="air-quality"></div>
+				<div class="high-temperature-warning"></div>
+				<div class="top">
+					<div class="background123"></div>
+					<div class="gradient"></div>
+					<div class="background4"></div>
+					<div class="location">
+						<div class="back"></div>
+						<div class="location-word">
+							<img src="./images/location.png" alt="" />
+							<span>东京市 下北泽</span>
+						</div>
+						<div class="share"></div>
+					</div>
+					<div class="latest-release"><div>默认数据 加载中111111111</div></div>
+					<div class="temperature">11°</div>
+					<div class="weather">晴</div>
+					<div class="humidity-wind">
+						<div class="humidity">湿度 45%</div>
+						<div class="wind">东南风 1级</div>
+					</div>
+					<div class="greeting">圣地巡礼</div>
+				</div>
+				<div class="bottom">
+					<div class="today">
+						<div class="today-weather">
+							<span>今天</span>
+							<span class="temperature">10/19°</span>
+						</div>
+						<div class="today-temperature">
+							<div>晴转阴</div>
+							<img src="./images/day/qing.png" alt="" />
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="tomorrow">
+						<div class="tomorrow-weather">
+							<span>明天</span>
+							<span class="temperature">8/10°</span>
+						</div>
+						<div class="tomorrow-temperature">
+							<div>多云</div>
+							<img src="./images/day/yun.png" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="real-time-weather">
+				<div class="flexbox">
+					<div class="time1">
+						<div class="time">11:00</div>
+						<img src="./images/day/qing.png" alt="" />
+						<div class="temperature">33°</div>
+					</div>
+				</div>
+			</div>
+			<div class="weather-forecast">
+				<div class="day">
+					<div class="day0">
+						<div class="day-text">昨天</div>
+						<div class="day-date">11/04</div>
+						<div class="day-weather">晴</div>
 						<img src="./images/day/qing.png" alt="" />
 					</div>
 				</div>
-				<div class="line"></div>
-				<div class="tomorrow">
-					<div class="tomorrow-weather">
-						<span>明天</span>
-						<span class="tomorrow-temperature">8/10°</span>
-					</div>
-					<div class="tomorrow-temperature">
-						<div>多云</div>
-						<img src="./images/day/yun.png" alt="" />
+				<div class="middle">此处放一个可视化库，先空着，最后再学</div>
+				<div class="night">
+					<div class="night0">
+						<img src="./images/night/qing.png" alt="" />
+						<div class="night-weather">晴</div>
+						<div class="wind-direction">东南风</div>
+						<div class="wind-power">2级</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="real-time-weather">
-			<div class="time1">
-				<div class="time">11:00</div>
-				<img src="./images/day/qing.png" alt="" />
-				<div class="temperature">33°</div>
+			<div class="activities-suggested">
+				<table>
+					<tr>
+						<td class="traffic-restriction">
+							<div>
+								<img src="./images/limit.png" alt="" />
+								<div class="suggest">不限行</div>
+								<div class="active">尾号限行</div>
+							</div>
+						</td>
+						<td class="dress-suggestion">
+							<div>
+								<img src="./images/cloth2.png" alt="" />
+								<div class="suggest">炎热</div>
+								<div class="active">穿衣</div>
+							</div>
+						</td>
+						<td class="umbrella-suggestion">
+							<div>
+								<img src="./images/umbrella.png" alt="" />
+								<div class="suggest">不带伞</div>
+								<div class="active">雨伞</div>
+							</div>
+						</td>
+						<td class="common-cold">
+							<div>
+								<img src="./images/pill.png" alt="" />
+								<div class="suggest">少发</div>
+								<div class="active">感冒</div>
+							</div>
+						</td>
+						<td class="travel-condition">
+							<div>
+								<img src="./images/lvyou.png" alt="" />
+								<div class="suggest">较不宜</div>
+								<div class="active">旅游</div>
+							</div>
+						</td>
+						<td class="traffic-condition">
+							<div>
+								<img src="./images/car.png" alt="" />
+								<div class="suggest">良好</div>
+								<div class="active">交通</div>
+							</div>
+						</td>
+						<td class="air-pollution">
+							<div>
+								<img src="./images/air.png" alt="" />
+								<div class="suggest">中</div>
+								<div class="active">空气污染扩散条件</div>
+							</div>
+						</td>
+						<td class="comfort-index">
+							<div>
+								<img src="./images/smile.png" alt="" />
+								<div class="suggest">很不舒适</div>
+								<div class="active">舒适度</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="car-washing">
+							<div>
+								<img src="./images/washcar.png" alt="" />
+								<div class="suggest">适宜</div>
+								<div class="active">洗车</div>
+							</div>
+						</td>
+						<td class="sport-suggestion">
+							<div>
+								<img src="./images/sports.png" alt="" />
+								<div class="suggest">较不宜</div>
+								<div class="active">运动</div>
+							</div>
+						</td>
+						<td class="uv-protection">
+							<div>
+								<img src="./images/sun.png" alt="" />
+								<div class="suggest">极强</div>
+								<div class="active">防晒</div>
+							</div>
+						</td>
+						<td class="fishing-suggestion">
+							<div>
+								<img src="./images/diaoyu.png" alt="" />
+								<div class="suggest">较适宜</div>
+								<div class="active">钓鱼</div>
+							</div>
+						</td>
+						<td class="clothes-drying">
+							<div>
+								<img src="./images/liangshai.png" alt="" />
+								<div class="suggest">极适宜</div>
+								<div class="active">晾晒</div>
+							</div>
+						</td>
+						<td class="makeup-suggestion">
+							<div>
+								<img src="./images/kouhong.png" alt="" />
+								<div class="suggest">防脱水防晒</div>
+								<div class="active">化妆</div>
+							</div>
+						</td>
+						<td class="morning-exercise">
+							<div>
+								<img src="./images/chenlian.png" alt="" />
+								<div class="suggest">较适宜</div>
+								<div class="active">晨练</div>
+							</div>
+						</td>
+						<td class="allergy-warning">
+							<div>
+								<img src="./images/cold.png" alt="" />
+								<div class="suggest">不易发</div>
+								<div class="active">过敏</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<div class="change-dots"></div>
+			</div>
+			<div class="suggest-dialog"></div>
+			<div class="gary-mask"></div>
+			<div class="about">
+				<div class="data-from">数据来源于和风天气，天气API</div>
+				<div class="copyright">只有Copy没有right© 2023 WiSHao copy自腾讯天气</div>
 			</div>
 		</div>
-		<div class="weather-forecast">
-			<div class="day">
-				<div class="day0">
-					<div class="day-text">昨天</div>
-					<div class="day-date">11/04</div>
-					<div class="day-weather">晴</div>
-					<img src="./images/day/qing.png" alt="" />
-				</div>
-			</div>
-			<div class="middle">此处放一个可视化库，先空着，最后再学</div>
-			<div class="night">
-				<div class="night0">
-					<img src="./images/night/qing.png" alt="" />
-					<div class="day-weather">晴</div>
-					<div class="wind-direction">东南风</div>
-					<div class="wind-power">2级</div>
-				</div>
-			</div>
-		</div>
-		<div class="activities-suggested">
-			<table>
-				<tr>
-					<td class="traffic-restriction">
-						<div>
-							<img src="./images/limit.png" alt="" />
-							<div class="suggest">不限行</div>
-							<div class="active">尾号限行</div>
-						</div>
-					</td>
-					<td class="dress-suggestion">
-						<div>
-							<img src="./images/cloth2.png" alt="" />
-							<div class="suggest">炎热</div>
-							<div class="active">穿衣</div>
-						</div>
-					</td>
-					<td class="umbrella-suggestion">
-						<div>
-							<img src="./images/umbrella.png" alt="" />
-							<div class="suggest">不带伞</div>
-							<div class="active">雨伞</div>
-						</div>
-					</td>
-					<td class="common-cold">
-						<div>
-							<img src="./images/pill.png" alt="" />
-							<div class="suggest">少发</div>
-							<div class="active">感冒</div>
-						</div>
-					</td>
-					<td class="travel-condition">
-						<div>
-							<img src="./images/lvyou.png" alt="" />
-							<div class="suggest">较不宜</div>
-							<div class="active">旅游</div>
-						</div>
-					</td>
-					<td class="traffic-condition">
-						<div>
-							<img src="./images/car.png" alt="" />
-							<div class="suggest">良好</div>
-							<div class="active">交通</div>
-						</div>
-					</td>
-					<td class="air-pollution">
-						<div>
-							<img src="./images/air.png" alt="" />
-							<div class="suggest">中</div>
-							<div class="active">空气污染扩散条件</div>
-						</div>
-					</td>
-					<td class="comfort-index">
-						<div>
-							<img src="./images/smile.png" alt="" />
-							<div class="suggest">很不舒适</div>
-							<div class="active">舒适度</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="car-washing">
-						<div>
-							<img src="./images/washcar.png" alt="" />
-							<div class="suggest">适宜</div>
-							<div class="active">洗车</div>
-						</div>
-					</td>
-					<td class="sport-suggestion">
-						<div>
-							<img src="./images/sports.png" alt="" />
-							<div class="suggest">较不宜</div>
-							<div class="active">运动</div>
-						</div>
-					</td>
-					<td class="uv-protection">
-						<div>
-							<img src="./images/sun.png" alt="" />
-							<div class="suggest">极强</div>
-							<div class="active">防晒</div>
-						</div>
-					</td>
-					<td class="fishing-suggestion">
-						<div>
-							<img src="./images/diaoyu.png" alt="" />
-							<div class="suggest">较适宜</div>
-							<div class="active">钓鱼</div>
-						</div>
-					</td>
-					<td class="clothes-drying">
-						<div>
-							<img src="./images/liangshai.png" alt="" />
-							<div class="suggest">极适宜</div>
-							<div class="active">晾晒</div>
-						</div>
-					</td>
-					<td class="makeup-suggestion">
-						<div>
-							<img src="./images/kouhong.png" alt="" />
-							<div class="suggest">防脱水防晒</div>
-							<div class="active">化妆</div>
-						</div>
-					</td>
-					<td class="morning-exercise">
-						<div>
-							<img src="./images/chenlian.png" alt="" />
-							<div class="suggest">较适宜</div>
-							<div class="active">晨练</div>
-						</div>
-					</td>
-					<td class="allergy-warning">
-						<div>
-							<img src="./images/cold.png" alt="" />
-							<div class="suggest">不易发</div>
-							<div class="active">过敏</div>
-						</div>
-					</td>
-				</tr>
-			</table>
-			<div class="change-dots"></div>
-		</div>
-		<div class="about">
-			<div class="data-from">数据来源于和风天气，天气API</div>
-			<div class="copyright">只有Copy没有right© 2023 WiSHao copy自腾讯天气</div>
-		</div>
+		<script src="./main.js" type="module"></script>
 	</body>
 </html>

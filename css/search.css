@@ -1,0 +1,114 @@
+.search {
+	position: absolute;
+	z-index: 11;
+	height: 100vh;
+	width: 100vw;
+	background-color: #fff;
+
+	transform: translateY(-100%);
+}
+
+.search-top {
+	height: 5vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	border-bottom: 1px solid #eee;
+}
+
+.search-top > .input {
+	width: 80vw;
+	height: 3vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	border-radius: 1.5vh;
+	background-color: #f2f2f2;
+}
+
+.search-top > .input > img {
+	height: 1.6vh;
+}
+
+.search-top > .input > input {
+	width: 70vw;
+	border: none;
+	background-color: transparent;
+	outline: none;
+}
+
+.search-body > .search-main > .history {
+	margin-bottom: 2vh;
+}
+
+.search-body > .search-main > .history > .title {
+	margin: 1vh 4vw;
+	display: flex;
+	justify-content: space-between;
+}
+
+.search-body > .search-main > .history > .title > img {
+	height: 2vh;
+}
+
+.search-body > .search-main > .history > .place,
+.search-body > .search-main > .hot > .place {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+}
+
+.search-body > .search-main > .history > .place > div,
+.search-body > .search-main > .hot > .place > div {
+	height: 3vh;
+	border-radius: 1.5vh;
+	background-color: #f2f2f2;
+	font-size: small;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30vw;
+	margin-bottom: 1vh;
+	margin-left: 2vw;
+}
+
+.search-body > .search-main > .hot > .title {
+	margin-bottom: 2vh;
+	margin-left: 4vw;
+}
+
+.search-body > .search-suggest {
+	display: none;
+}
+
+.search-body > .search-suggest > div {
+	margin-left: 4vw;
+	padding: 1vh 0;
+	border-bottom: 1px solid #eee;
+}
+
+@keyframes scroll-up2 {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+@keyframes scroll-down2 {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.loading {
+	margin-left: 43vw !important;
+	margin-top: 0.5vh;
+	color: rgb(153, 153, 153);
+	border-bottom: none !important;
+}

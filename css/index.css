@@ -6,6 +6,7 @@
 
 body {
 	background-color: #f4f4f4;
+	position: relative;
 }
 
 /* 临时 */
@@ -219,29 +220,35 @@ img {
 	border-top: 1px solid #e4e4e4;
 	border-bottom: 1px solid #e4e4e4;
 	margin-bottom: 1vh;
+	overflow: auto;
+}
+.real-time-weather > .flexbox {
+	height: 100%;
+	width: 390vw;
 	display: flex;
 	align-items: center;
 }
 
-.real-time-weather > div {
+.real-time-weather > .flexbox > div {
 	height: 10vh;
-	width: 8vh;
+	width: 15vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 }
-.real-time-weather > div > .time {
+.real-time-weather > .flexbox > div > .time {
 	font-size: xx-small;
 	color: #999;
 }
-.real-time-weather > div > img {
+.real-time-weather > .flexbox > div > img {
 	height: 3vh;
 }
 
 .weather-forecast {
 	width: 100vw;
-	height: 44vh;
+	overflow: auto;
+	height: 45vh;
 	background-color: #fff;
 	border-top: 1px solid #e4e4e4;
 	border-bottom: 1px solid #e4e4e4;
@@ -249,6 +256,7 @@ img {
 }
 
 .weather-forecast > .day {
+	width: 136vw;
 	height: 11vh;
 	margin-top: 3vh;
 	display: flex;
@@ -256,11 +264,12 @@ img {
 
 .weather-forecast > .day > div,
 .weather-forecast > .night > div {
-	width: 18vw;
+	width: 17vw;
 	height: 11vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+
 	align-items: center;
 }
 
@@ -288,7 +297,9 @@ img {
 
 .weather-forecast > .night {
 	height: 11vh;
+	width: 136vw;
 	margin-bottom: 3vh;
+	display: flex;
 }
 
 .activities-suggested {
