@@ -115,6 +115,95 @@ export class SetInformation {
 
 		this.weatherForecastDayDOM.insertAdjacentHTML('beforeend', dayHTML);
 		this.weatherForecastNighyDOM.insertAdjacentHTML('beforeend', nightHTML);
+
+		let dayTemperature = [];
+		let nightTemperature = [];
+		json.daily.forEach((item, index) => {
+			dayTemperature[index] = parseInt(item.tempMax);
+			nightTemperature[index] = parseInt(item.tempMin);
+		});
+		console.log(dayTemperature);
+		console.log(nightTemperature);
+		// 此处开始制作图表
+
+		let myChart = echarts.init(this.weatherForecastMiddle);
+
+		// 指定图表的配置项和数据
+		let option = {
+			tooltip: {
+				show: false, // 隐藏鼠标悬停的显示效果
+			},
+			xAxis: {
+				type: 'category',
+				data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], // 这里假设你有12个小时的数据
+				show: false, // 隐藏x轴
+			},
+			yAxis: {
+				type: 'value',
+				min: Math.min(...dayTemperature, ...nightTemperature), // 这里我们设置y轴最小值为两组温度数据中的最小值
+				show: false, // 隐藏y轴
+			},
+			grid: {
+				// 网格配置
+				show: false, // 隐藏网格线
+
+				left: '60', // 距离容器左侧的距离
+				right: '-350', // 距离容器右侧的距离
+				top: '20', // 距离容器顶部的距离
+				bottom: '20', // 距离容器底部的距离
+				containLabel: true, // 是否包含坐标轴的标签，如果你的标签被切掉，可以设置此项为true
+			},
+			series: [
+				{
+					name: '白天温度',
+					type: 'line',
+					data: dayTemperature,
+					label: {
+						show: true,
+						position: 'top',
+						formatter: '{c}°',
+					},
+					lineStyle: {
+						color: '#ffb74d', // 你可以根据需要更改折线的颜色
+					},
+					smooth: true, // 这会使折线平滑
+					symbol: 'circle', // 设置点的形状
+					itemStyle: {
+						color: '#ffb74d', // 设置点的颜色
+						borderWidth: 0, // 设置点的描边宽度，0 表示没有描边
+					},
+					label: {
+						show: true,
+						position: 'top',
+						formatter: '{c}°',
+						color: '#000000', // 设置标签颜色为黑色
+					},
+				},
+				{
+					name: '夜间温度',
+					type: 'line',
+					data: nightTemperature,
+					symbol: 'circle', // 设置点的形状
+					itemStyle: {
+						color: '#4fc3f7', // 设置点的颜色
+						borderWidth: 0, // 设置点的描边宽度，0 表示没有描边
+					},
+					label: {
+						show: true,
+						position: 'bottom',
+						formatter: '{c}°',
+						color: '#000000', // 设置标签颜色为黑色
+					},
+					lineStyle: {
+						color: '#4fc3f7', // 你可以根据需要更改折线的颜色
+					},
+					smooth: true, // 这会使折线平滑
+				},
+			],
+		};
+
+		myChart.setOption(option);
+		// myChart.resize();
 	};
 
 	#setWeather24h = async (data) => {
