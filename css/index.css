@@ -140,7 +140,9 @@ img {
 
 .main-page > .top > .temperature {
 	font-size: 7vh;
+	font-weight: 500;
 	margin-top: 5vh;
+	margin-left: 24px;
 }
 
 .main-page > .top > .weather {
@@ -152,7 +154,6 @@ img {
 	height: 2vh;
 	width: 20vw;
 	font-size: small;
-	overflow: hidden;
 	position: relative;
 }
 .main-page > .top > .humidity-wind > .humidity,
@@ -161,13 +162,13 @@ img {
 	animation: scroll-up 10s linear infinite;
 }
 .main-page > .top > .humidity-wind > .humidity {
-	width: 16vw;
+	white-space: nowrap;
 	margin-left: 15%;
 }
 .main-page > .top > .humidity-wind > .wind {
-	width: 16vw;
-	margin-left: 10%;
-
+	white-space: nowrap;
+	margin-left: 11%;
+	opacity: 0;
 	transform: translateY(100%);
 	animation-delay: 5s; /* 风向动画延迟，确保湿度消失后开始 */
 }
