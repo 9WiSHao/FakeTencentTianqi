@@ -1,4 +1,4 @@
-let qweatherKey = 'f066f70d77f049808a3c858fdb869ff3';
+let qweatherKey = 'b22686b21992475d85606e9400778122';
 let getCityCode = 'https://geoapi.qweather.com/v2/city/lookup';
 let getHotCity = 'https://geoapi.qweather.com/v2/city/top';
 let getCityWeatherNow = 'https://devapi.qweather.com/v7/weather/now';
