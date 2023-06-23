@@ -161,7 +161,7 @@ img {
 	animation: scroll-up 10s linear infinite;
 }
 .main-page > .top > .humidity-wind > .humidity {
-	width: 14vw;
+	width: 16vw;
 	margin-left: 15%;
 }
 .main-page > .top > .humidity-wind > .wind {
