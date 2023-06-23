@@ -33,13 +33,47 @@ export class SetInformation {
 		this.realTimeWeatherDOM = document.querySelector('.real-time-weather > .flexbox');
 
 		this.activitiesSuggestedDOM = document.querySelector('.activities-suggested');
+		this.activitiesSuggestedTrDOMall = document.querySelectorAll('.activities-suggested tr');
+
+		this.suggestDialogDOM = document.querySelector('.suggest-dialog');
+		this.suggestDialogTitleDOM = document.querySelector('.suggest-dialog .title');
+		this.suggestDialogMessageDOM = document.querySelector('.suggest-dialog .text');
+		this.suggestDialogButtonDOM = document.querySelector('.suggest-dialog .ok');
+		this.maskDOM = document.querySelector('.gary-mask');
+
+		this.activitiesSuggestedDOM.addEventListener('click', (e) => {
+			if (!e.target.closest('.indices1')) {
+				return;
+			}
+			console.log(123);
+
+			let title = e.target.closest('.indices1').dataset.name;
+			let message = e.target.closest('.indices1').dataset.text;
+
+			this.suggestDialogTitleDOM.innerHTML = title;
+			this.suggestDialogMessageDOM.innerHTML = message;
+
+			this.suggestDialogDOM.style.display = 'block';
+			this.maskDOM.style.display = 'block';
+			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
+		});
+
+		this.suggestDialogButtonDOM.addEventListener('click', () => {
+			this.suggestDialogButtonDOM.style.backgroundColor = '#9ABFBA';
+
+			this.maskDOM.style.display = 'none';
+			this.suggestDialogDOM.style.animation = 'scroll-down3 0.3s ease-in-out';
+			setTimeout(() => {
+				this.suggestDialogDOM.style.display = 'none';
+			}, 300);
+		});
 	}
 
 	rander = async (data) => {
 		this.#setWeatherNow(data);
 		await this.#setWeather7d(data);
 		this.#setWeather24h(data);
-		this.#setIndices1d_1(data);
+		this.#setIndices1d(data);
 	};
 
 	#setWeatherNow = async (data) => {
@@ -122,8 +156,6 @@ export class SetInformation {
 			dayTemperature[index] = parseInt(item.tempMax);
 			nightTemperature[index] = parseInt(item.tempMin);
 		});
-		console.log(dayTemperature);
-		console.log(nightTemperature);
 		// 此处开始制作图表
 
 		let myChart = echarts.init(this.weatherForecastMiddle);
@@ -262,17 +294,36 @@ export class SetInformation {
 		this.realTimeWeatherDOM.innerHTML = weather24hHTML;
 	};
 
-	#setIndices1d_1 = async (data) => {
+	#setIndices1d = async (data) => {
 		let res = await fetch(`${API.indices1d_1}&location=${data}`);
 		let json = await res.json();
 
-		this.#set('dress-suggestion', json.daily[2].category, json.daily[2].name, json.daily[2].text);
-	};
-
-	#set = (a, b, d, e) => {
-		this.activitiesSuggestedDOM.querySelector(`.${a} .suggest`).innerHTML = b;
-		this.activitiesSuggestedDOM.querySelector(`.${a}`).setAttribute('title', d);
-		this.activitiesSuggestedDOM.querySelector(`.${a}`).setAttribute('detail', e);
+		let html1 = '';
+		for (let i = 0; i < 8; i++) {
+			html1 += `
+        <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
+          <div>
+            <img src="../images/indices/${i + 1}.png" alt="" />
+            <div class="suggest">${json.daily[i].category}</div>
+            <div class="active">${json.daily[i].name}</div>
+          </div>
+        </td>
+      `;
+		}
+		let html2 = '';
+		for (let i = 8; i < 16; i++) {
+			html2 += `
+        <td class="indices1" data-name="${json.daily[i].name}" data-text="${json.daily[i].text}">
+          <div>
+            <img src="../images/indices/${i + 1}.png" alt="" />
+            <div class="suggest">${json.daily[i].category}</div>
+            <div class="active">${json.daily[i].name}</div>
+          </div>
+        </td>
+      `;
+		}
+		this.activitiesSuggestedTrDOMall[0].innerHTML = html1;
+		this.activitiesSuggestedTrDOMall[1].innerHTML = html2;
 	};
 
 	#setIconSrc = (weather, time) => {
