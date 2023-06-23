@@ -29,6 +29,21 @@ img {
 	position: absolute;
 }
 
+.air-quality {
+	z-index: 10;
+	height: 6vh;
+	width: 10vw;
+	border-radius: 12px;
+	background-color: #a3d765;
+	color: #fff;
+	top: 8vh;
+	left: 4vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .main-page > .top {
 	position: relative;
 	width: 100vw;

@@ -17,6 +17,7 @@ export class SetInformation {
 		this.mainHumidityDOM = document.querySelector('.main-page > .top > .humidity-wind > .humidity');
 		this.mainWindDOM = document.querySelector('.main-page > .top > .humidity-wind > .wind');
 		this.greetingDOM = document.querySelector('.greeting');
+		this.airQualityDOM = document.querySelector('.main .air-quality');
 
 		this.mainTodayTemperatureDOM = document.querySelector('.main-page > .bottom .today-weather > .temperature');
 		this.mainTodayWeatherDOM = document.querySelector('.main-page > .bottom .today-temperature > div');
@@ -74,6 +75,7 @@ export class SetInformation {
 		await this.#setWeather7d(data);
 		this.#setWeather24h(data);
 		this.#setIndices1d(data);
+		this.#setAirQuality(data);
 	};
 
 	#setWeatherNow = async (data) => {
@@ -324,6 +326,38 @@ export class SetInformation {
 		}
 		this.activitiesSuggestedTrDOMall[0].innerHTML = html1;
 		this.activitiesSuggestedTrDOMall[1].innerHTML = html2;
+	};
+
+	#setAirQuality = async (data) => {
+		let res = await fetch(`${API.air}&location=${data}`);
+		let json = await res.json();
+
+		let color = '';
+		switch (json.now.level) {
+			case '1':
+				color = '#a3d765';
+				break;
+			case '2':
+				color = '#f0cc35';
+				break;
+			case '3':
+				color = '#f1ab62';
+				break;
+			case '4':
+				color = '#ef7f77';
+				break;
+			case '5':
+				color = '#99004c';
+				break;
+			case '6':
+				color = '#7e0023';
+				break;
+		}
+
+		this.airQualityDOM.style.backgroundColor = color;
+
+		this.airQualityDOM.children[0].innerHTML = json.now.aqi;
+		this.airQualityDOM.children[1].innerHTML = json.now.category;
 	};
 
 	#setIconSrc = (weather, time) => {
