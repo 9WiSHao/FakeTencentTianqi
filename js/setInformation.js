@@ -182,7 +182,7 @@ export class SetInformation {
 				show: false, // 隐藏网格线
 
 				left: '60', // 距离容器左侧的距离
-				right: '-350', // 距离容器右侧的距离
+				right: '0', // 距离容器右侧的距离
 				top: '20', // 距离容器顶部的距离
 				bottom: '20', // 距离容器底部的距离
 				containLabel: true, // 是否包含坐标轴的标签，如果你的标签被切掉，可以设置此项为true
