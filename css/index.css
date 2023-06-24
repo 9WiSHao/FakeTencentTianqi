@@ -471,3 +471,100 @@ img {
 		opacity: 0;
 	}
 }
+
+.air-dialog {
+	position: fixed;
+	top: 26%;
+	width: 60vw;
+	height: 42vh;
+	background-color: #fff;
+	margin-left: -30vw;
+	z-index: 1000;
+	left: 50%;
+	border-radius: 10px;
+	display: none;
+}
+
+.air-dialog > img {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 3vh;
+}
+
+.air-dialog > .top {
+	height: 70%;
+	width: 100%;
+	background-color: #80d2e5;
+	border-radius: 10px 10px 0 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-image: url(../images/airmore.png);
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: 100%;
+}
+
+.air-dialog > .top > .title {
+	font-size: 1.5vh;
+	color: #fff;
+	margin-top: 6vh;
+}
+
+.air-dialog > .top > .score {
+	font-weight: 500;
+	font-size: 6vh;
+	color: #fff;
+	margin-top: 1vh;
+}
+
+.air-dialog > .top > .level {
+	height: 3vh;
+	width: 12vw;
+	background-color: #f0cc35;
+	font-size: 1.5vh;
+	color: #fff;
+	margin-top: 2vh;
+	border-radius: 0.8vh;
+
+	text-align: center;
+	line-height: 3vh;
+}
+
+.air-dialog > .bottom {
+	height: 30%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	background-color: #e4e4e4;
+	border-radius: 0 0 10px 10px;
+	gap: 1px;
+}
+
+.air-dialog > .bottom > .others {
+	background-color: #fff;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.air-dialog > .bottom > .others:nth-child(4) {
+	border-radius: 0 0 0 10px;
+}
+
+.air-dialog > .bottom > .others:nth-child(6) {
+	border-radius: 0 0 10px 0;
+}
+
+.air-dialog > .bottom > .others > .others-score {
+	margin-bottom: 2px;
+}
+
+.air-dialog > .bottom > .others > .others-title {
+	font-size: 1.5vh;
+	color: #b2b2b2;
+}

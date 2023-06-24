@@ -18,6 +18,11 @@ export class SetInformation {
 		this.mainWindDOM = document.querySelector('.main-page > .top > .humidity-wind > .wind');
 		this.greetingDOM = document.querySelector('.greeting');
 		this.airQualityDOM = document.querySelector('.main .air-quality');
+		this.airQualityDialogDOM = document.querySelector('.air-dialog');
+		this.airQualityDialogCloseDOM = document.querySelector('.air-dialog > .close');
+		this.airQualityDialogScoreDOM = document.querySelector('.air-dialog > .top > .score');
+		this.airQualityDialogLevelDOM = document.querySelector('.air-dialog > .top > .level');
+		this.airQualityDialogBottomDOM = document.querySelector('.air-dialog > .bottom');
 
 		this.mainTodayTemperatureDOM = document.querySelector('.main-page > .bottom .today-weather > .temperature');
 		this.mainTodayWeatherDOM = document.querySelector('.main-page > .bottom .today-temperature > div');
@@ -59,8 +64,8 @@ export class SetInformation {
 			this.maskDOM.style.display = 'block';
 			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
 		});
-		// 退出对话框按钮
-		this.suggestDialogButtonDOM.addEventListener('click', () => {
+		// 退出生活指数对话框
+		let exitSuggestDialogHandler = () => {
 			this.suggestDialogButtonDOM.style.backgroundColor = '#9ABFBA';
 
 			this.suggestDialogDOM.style.animation = 'scroll-down3 0.3s ease-in-out';
@@ -71,7 +76,28 @@ export class SetInformation {
 				this.suggestDialogDOM.style.display = 'none';
 				this.maskDOM.style.display = 'none';
 			}, 300);
+		};
+		this.suggestDialogButtonDOM.addEventListener('click', exitSuggestDialogHandler);
+		this.maskDOM.addEventListener('click', exitSuggestDialogHandler);
+
+		// 点击空气质量指数，弹出对话框
+		this.airQualityDOM.addEventListener('click', () => {
+			this.airQualityDialogDOM.style.display = 'block';
+			this.maskDOM.style.display = 'block';
+			this.airQualityDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
 		});
+
+		// 退出空气质量指数对话框
+		let exitAirQualityDialogHandler = () => {
+			this.airQualityDialogDOM.style.animation = 'scroll-down3 0.3s ease-in-out';
+			// 同理，这个延迟也是为了等动画走完再消失
+			setTimeout(() => {
+				this.airQualityDialogDOM.style.display = 'none';
+				this.maskDOM.style.display = 'none';
+			}, 300);
+		};
+		this.airQualityDialogCloseDOM.addEventListener('click', exitAirQualityDialogHandler);
+		this.maskDOM.addEventListener('click', exitAirQualityDialogHandler);
 	}
 
 	rander = async (data) => {
@@ -249,6 +275,7 @@ export class SetInformation {
 		let res = await fetch(`${API.weather24h}&location=${data}`);
 		let json = await res.json();
 
+		// 这是因为展示的除了24小时天气之外里面还需要插日出日落时间，所以先插进去
 		let jsonAfter = this.#get24hJson(json);
 
 		let weather24hHTML = '';
@@ -269,6 +296,7 @@ export class SetInformation {
 		}
 
 		for (let i = 0; i < 26; i++) {
+			// 这是遇到日出日落把图片得换了，文字也要换。然后00:00的文字要换成明天
 			let time = jsonAfter.hourly[i].fxTime.split('T')[1].split('+')[0];
 			let hour = parseInt(time.split(':')[0]);
 			let d = 'night';
@@ -333,32 +361,33 @@ export class SetInformation {
 		let res = await fetch(`${API.air}&location=${data}`);
 		let json = await res.json();
 
-		let color = '';
-		switch (json.now.level) {
-			case '1':
-				color = '#a3d765';
-				break;
-			case '2':
-				color = '#f0cc35';
-				break;
-			case '3':
-				color = '#f1ab62';
-				break;
-			case '4':
-				color = '#ef7f77';
-				break;
-			case '5':
-				color = '#99004c';
-				break;
-			case '6':
-				color = '#7e0023';
-				break;
-		}
-
+		let color = this.#airColor(json.now.level);
 		this.airQualityDOM.style.backgroundColor = color;
 
 		this.airQualityDOM.children[0].innerHTML = json.now.aqi;
 		this.airQualityDOM.children[1].innerHTML = json.now.category;
+
+		this.airQualityDialogScoreDOM.innerHTML = json.now.aqi;
+		this.airQualityDialogLevelDOM.innerHTML = json.now.category;
+
+		// 这里是要获取空气污染的一些列详细数据
+		// 但是情况是要获取的除了键值以外还有属性名，所以用了Object.keys()方法，属性名转成数组
+		// 然后就是给的属性名都是小写，而且pm2.5写的pm2p5，所以要转换一下
+		let html = '';
+		let keys = Object.keys(json.now);
+		for (let i = 0; i < 6; i++) {
+			let title = keys[i + 5];
+			if (keys[i + 5] == 'pm2p5') {
+				title = 'pm2.5';
+			}
+			html += `
+      <div class="others">
+        <div class="others-score">${json.now[keys[i + 5]]}</div>
+        <div class="others-title">${title.toUpperCase()}</div>
+      </div>
+      `;
+		}
+		this.airQualityDialogBottomDOM.innerHTML = html;
 	};
 
 	#setIconSrc = (weather, time) => {
@@ -473,11 +502,11 @@ export class SetInformation {
 		let realSunrise = this.sunrise1;
 		let realSunset = this.sunset1;
 
-		if (sunriseTime1 < parseInt(json.hourly[0].fxTime.split('T')[1].split(':')[0])) {
+		if (sunriseTime1 < parseInt(resultJson.hourly[0].fxTime.split('T')[1].split(':')[0])) {
 			realSunrise = this.sunrise2;
 			day2 = true;
 		}
-		if (sunsetTime1 < parseInt(json.hourly[0].fxTime.split('T')[1].split(':')[0])) {
+		if (sunsetTime1 < parseInt(resultJson.hourly[0].fxTime.split('T')[1].split(':')[0])) {
 			realSunset = this.sunset2;
 			night2 = true;
 		}
@@ -485,8 +514,8 @@ export class SetInformation {
 		// 这是如果判断是得插第二天，就先获取第二天从数组里哪一号开始
 		let h24Index = 0;
 		if (day2 || night2) {
-			for (let i = 0; i < json.hourly.length; i++) {
-				if (json.hourly[i].fxTime.split('T')[1].split(':')[0] == '00') {
+			for (let i = 0; i < resultJson.hourly.length; i++) {
+				if (resultJson.hourly[i].fxTime.split('T')[1].split(':')[0] == '00') {
 					h24Index = i;
 					break;
 				}
@@ -502,8 +531,8 @@ export class SetInformation {
 		if (day2) {
 			i = h24Index;
 		}
-		while (i < json.hourly.length) {
-			if (sunriseHour < parseInt(json.hourly[i].fxTime.split('T')[1].split(':')[0])) {
+		while (i < resultJson.hourly.length) {
+			if (sunriseHour < parseInt(resultJson.hourly[i].fxTime.split('T')[1].split(':')[0])) {
 				sunriseIndex = i;
 				break;
 			}
@@ -518,16 +547,35 @@ export class SetInformation {
 		if (night2) {
 			i = h24Index;
 		}
-		while (i < json.hourly.length) {
-			if (sunsetHour < parseInt(json.hourly[i].fxTime.split('T')[1].split(':')[0])) {
+		while (i < resultJson.hourly.length) {
+			if (sunsetHour < parseInt(resultJson.hourly[i].fxTime.split('T')[1].split(':')[0])) {
 				sunsetIndex = i;
 				break;
 			}
 			i++;
 		}
 
-		json.hourly.splice(sunsetIndex, 0, { fxTime: `2023-06-23T${realSunset}+08:00`, text: 'sunset' });
+		resultJson.hourly.splice(sunsetIndex, 0, { fxTime: `2023-06-23T${realSunset}+08:00`, text: 'sunset' });
 
 		return resultJson;
+	};
+
+	#airColor = (aqi) => {
+		switch (aqi) {
+			case '1':
+				return '#a3d765';
+			case '2':
+				return '#f0cc35';
+			case '3':
+				return '#f1ab62';
+			case '4':
+				return '#ef7f77';
+			case '5':
+				return '#99004c';
+			case '6':
+				return '#7e0023';
+			default:
+				return 'black';
+		}
 	};
 }
