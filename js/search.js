@@ -17,30 +17,37 @@ export class Search {
 
 		this.cityNameDOM = document.querySelector('.location-word > span');
 
+		// 点击取消退出搜索页面
 		this.cancelDOM.addEventListener('click', () => {
 			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
 			this.mainDOM.style.display = 'block';
+		});
+
+		// 点击垃圾桶删除历史记录按钮
+		this.historyDeleteDOM.addEventListener('click', () => {
+			localStorage.removeItem('history');
+			this.historyDOM.style.display = 'none';
+		});
+
+		// 点击历史记录
+		this.historyDOM.addEventListener('click', (e) => {
+			if (!e.target.classList.contains('place1')) {
+				return;
+			}
+			let cityCode = e.target.dataset.cityCode;
+
+			window.location.hash = cityCode;
+
+			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
+			this.mainDOM.style.display = 'block';
+
+			this.cityNameDOM.innerText = e.target.innerText;
 		});
 
 		this.#renderHotCity();
 		this.#mainSearch();
 		this.#renderHistory();
 	}
-
-	reRander = () => {
-		// 重新渲染历史记录
-		let historyArr = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
-		if (historyArr.length == 0) {
-			this.historyDOM.style.display = 'none';
-			return;
-		}
-		let html = '';
-		for (let i = 0; i < historyArr.length; i++) {
-			html += `<div class="place1" data-city-code="${historyArr[i].citycode}">${historyArr[i].cityname}</div>`;
-		}
-		this.historyDOM.style.display = 'block';
-		this.historySeleteDOM.innerHTML = html;
-	};
 
 	#renderHotCity = async () => {
 		let cityArr = await getHotCity();
@@ -64,11 +71,10 @@ export class Search {
 			window.location.hash = cityCode;
 			// 改变hash值。同时把搜索记录存到localStorage里面
 			this.#saveHistory(cityName, cityCode);
-
-			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
-			this.mainDOM.style.display = 'block';
-
-			this.cityNameDOM.innerText = cityName;
+			// 退出搜索页
+			this.#Exit(cityName);
+			// 立即重新渲染历史记录
+			this.#renderHistory();
 		});
 	};
 
@@ -125,13 +131,12 @@ export class Search {
 			window.location.hash = cityCode;
 			// 改变hash值。同时把搜索记录存到localStorage里面
 			this.#saveHistory(cityName, cityCode);
-
-			// 这是把搜索页面上拉回去
-			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
-			this.mainDOM.style.display = 'block';
-
-			this.cityNameDOM.innerText = cityName;
+			// 退出搜索页
+			this.#Exit(cityName);
+			// 搜索框置空
 			this.searchInputDOM.value = '';
+			// 立即重新渲染历史记录
+			this.#renderHistory();
 		});
 	};
 
@@ -146,29 +151,20 @@ export class Search {
 		for (let i = 0; i < historyArr.length; i++) {
 			html += `<div class="place1" data-city-code="${historyArr[i].citycode}">${historyArr[i].cityname}</div>`;
 		}
-		this.historyDOM.style.display = 'block';
-		this.historySeleteDOM.innerHTML = html;
 
-		// 点击历史记录
-		this.historyDOM.addEventListener('click', (e) => {
-			if (!e.target.classList.contains('place1')) {
-				return;
-			}
-			let cityCode = e.target.dataset.cityCode;
+		// 设置个延时，至少下次进入搜索页再重新看见历史记录
+		setTimeout(() => {
+			this.historyDOM.style.display = 'block';
+			this.historySeleteDOM.innerHTML = html;
+		}, 500);
+	};
 
-			window.location.hash = cityCode;
-
-			this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
-			this.mainDOM.style.display = 'block';
-
-			this.cityNameDOM.innerText = e.target.innerText;
-		});
-
-		// 删除历史记录按钮
-		this.historyDeleteDOM.addEventListener('click', () => {
-			localStorage.removeItem('history');
-			this.historyDOM.style.display = 'none';
-		});
+	#Exit = (cityName) => {
+		// 这是把搜索页面上拉回去
+		this.searchDOM.style.animation = 'scroll-up2 0.3s ease-in-out forwards';
+		this.mainDOM.style.display = 'block';
+		// 设置现在搜索的城市名
+		this.cityNameDOM.innerText = cityName;
 	};
 
 	// 防抖函数

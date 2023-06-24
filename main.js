@@ -11,7 +11,6 @@ let searchDOM = document.querySelector('.search');
 let locationDOM = document.querySelector('.location-word');
 
 locationDOM.addEventListener('click', () => {
-	search.reRander();
 	searchDOM.style.animation = 'scroll-down2 0.3s ease-in-out forwards';
 	setTimeout(() => {
 		mainDOM.style.display = 'none';
