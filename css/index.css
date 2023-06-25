@@ -43,6 +43,38 @@ img {
 	align-items: center;
 }
 
+.main-page > .warning {
+	position: absolute;
+	height: 30vh;
+	width: 35vw;
+	top: 8vh;
+	right: 0;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+}
+
+.main-page > .warning .warning-message1 {
+	height: 2.6vh;
+	margin-bottom: 10px;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 1.5vh 0 0 1.5vh;
+	padding: 0 1vh;
+	font-size: small;
+	color: #fff;
+	display: flex;
+	align-items: center;
+}
+
+.main-page > .warning .warning-message1 > .circle {
+	height: 0.8vh;
+	width: 0.8vh;
+	border-radius: 50%;
+	background-color: Green;
+	margin-right: 1vh;
+}
+
 .main-page > .top {
 	position: relative;
 	width: 100vw;

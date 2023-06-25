@@ -9,7 +9,6 @@ export class SetInformation {
 
 	constructor(cityCode) {
 		this.cityCode = cityCode;
-		this.rander(this.cityCode);
 
 		this.latestReleaseDOM = document.querySelector('.latest-release div');
 		this.mainCityTemperatureDOM = document.querySelector('.main-page > .top > .temperature');
@@ -23,6 +22,8 @@ export class SetInformation {
 		this.airQualityDialogScoreDOM = document.querySelector('.air-dialog > .top > .score');
 		this.airQualityDialogLevelDOM = document.querySelector('.air-dialog > .top > .level');
 		this.airQualityDialogBottomDOM = document.querySelector('.air-dialog > .bottom');
+
+		this.warningDOM = document.querySelector('.main .warning');
 
 		this.mainTodayTemperatureDOM = document.querySelector('.main-page > .bottom .today-weather > .temperature');
 		this.mainTodayWeatherDOM = document.querySelector('.main-page > .bottom .today-temperature > div');
@@ -98,6 +99,34 @@ export class SetInformation {
 		};
 		this.airQualityDialogCloseDOM.addEventListener('click', exitAirQualityDialogHandler);
 		this.maskDOM.addEventListener('click', exitAirQualityDialogHandler);
+
+		// 点击预警，弹出对话框
+		this.warningDOM.addEventListener('click', (e) => {
+			if (!e.target.closest('.warning-message1')) {
+				return;
+			}
+			let title = e.target.closest('.warning-message1').dataset.title;
+			let message = e.target.closest('.warning-message1').dataset.text;
+			let color = e.target.closest('.warning-message1').dataset.color;
+
+			if (color == 'Yellow') {
+				color = '#f5d271';
+			}
+
+			this.suggestDialogTitleDOM.innerHTML = title;
+			this.suggestDialogTitleDOM.style.backgroundColor = color;
+			this.suggestDialogMessageDOM.innerHTML = message;
+			this.suggestDialogButtonDOM.style.backgroundColor = color;
+
+			this.suggestDialogDOM.style.display = 'block';
+			this.maskDOM.style.display = 'block';
+			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
+		});
+
+		// 退出预警对话框
+		// 不用写了，因为和生活指数共用的，已经有了
+
+		this.rander(this.cityCode);
 	}
 
 	rander = async (data) => {
@@ -106,6 +135,7 @@ export class SetInformation {
 		this.#setWeather24h(data);
 		this.#setIndices1d(data);
 		this.#setAirQuality(data);
+		this.#setWarning(data);
 	};
 
 	#setWeatherNow = async (data) => {
@@ -388,6 +418,26 @@ export class SetInformation {
       `;
 		}
 		this.airQualityDialogBottomDOM.innerHTML = html;
+	};
+
+	#setWarning = async (data) => {
+		let res = await fetch(`${API.warning}&location=${data}`);
+		let json = await res.json();
+
+		if (json.warning.length == 0) {
+			return;
+		}
+
+		let html = '';
+		for (let i = 0; i < json.warning.length; i++) {
+			html += `
+      <div class="warning-message1" data-color="${json.warning[i].severityColor}" data-title="${json.warning[i].typeName}${json.warning[i].level}预警" data-text="${json.warning[i].text}">
+        <div class="circle" style="background-color: ${json.warning[i].severityColor};"></div>
+        <div class="text">${json.warning[i].typeName}预警</div>
+      </div>
+      `;
+		}
+		this.warningDOM.innerHTML = html;
 	};
 
 	#setIconSrc = (weather, time) => {
