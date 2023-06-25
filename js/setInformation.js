@@ -53,7 +53,6 @@ export class SetInformation {
 			if (!e.target.closest('.indices1')) {
 				return;
 			}
-			console.log(123);
 
 			let title = e.target.closest('.indices1').dataset.name;
 			let message = e.target.closest('.indices1').dataset.text;

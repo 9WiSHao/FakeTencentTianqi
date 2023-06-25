@@ -1,4 +1,6 @@
 let qweatherKey = 'b22686b21992475d85606e9400778122';
+export let tencentLocationKey = 'TZBBZ-EN2CB-PEVU5-JOQ7F-DMMX2-UZBFJ';
+export let getLocation = 'https://apis.map.qq.com/ws/location/v1/ip';
 let getCityCode = 'https://geoapi.qweather.com/v2/city/lookup';
 let getHotCity = 'https://geoapi.qweather.com/v2/city/top';
 let getCityWeatherNow = 'https://devapi.qweather.com/v7/weather/now';
@@ -19,4 +21,6 @@ export let API = {
 	indices1d_1: `${getIndices1d_1}?key=${qweatherKey}&type=0`,
 	air: `${getCityAir}?key=${qweatherKey}`,
 	warning: `${getCityWarning}?key=${qweatherKey}`,
+	// 本来以为腾讯位置的api能用fetch方法获取，但是发现只能用JSONP，弃用了
+	// location: `${getLocation}?key=${tencentLocationKey}`,
 };
