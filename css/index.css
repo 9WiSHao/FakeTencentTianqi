@@ -427,6 +427,12 @@ img {
 	align-items: center;
 }
 
+.about a {
+	font-size: small;
+	color: #b2b2b2;
+	text-decoration: none;
+}
+
 .gary-mask {
 	position: fixed;
 	top: 0;
