@@ -17,7 +17,7 @@
 | 天气预警                       | ✅       |
 | 7 日天气曲线图表               | ✅       |
 | 昨日天气                       | ❌       |
-| 首次打开用户地址渲染所在地天气 | ❌       |
+| 首次打开用户地址渲染所在地天气 | ✅       |
 
 昨日天气由于没有接口，获取不到。天气时光机是付费 api，穷逼买不起
 
@@ -25,7 +25,8 @@
 
 #### 简单说明
 
-- api: [和风天气 API](https://dev.qweather.com/)
+- api: [和风天气 API](https://dev.qweather.com/)、[腾讯位置服务 API](https://lbs.qq.com/dev/console/home)
 - 原生 js 完成
+- 图表使用 Echarts 库完成
 - 功能由类封装功能，然后监听 hash 变化，传入新数据
 - 上传至 github page 页面，https://wishao.me/FakeTencentTianqi/ 因为用了 module，所以在本地运行的话需要用 live server 插件打开
