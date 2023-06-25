@@ -25,6 +25,9 @@ jsonp({
 		let res = await getCityCode(result.ad_info.district);
 		document.querySelector('.location-word > span').innerHTML = `${res[0].adm1} ${res[0].adm2} ${res[0].name}`;
 		fn.rander(res[0].id);
+
+		console.log(result);
+		console.log(res);
 	},
 });
 
