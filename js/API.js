@@ -1,4 +1,4 @@
-let qweatherKey = 'b22686b21992475d85606e9400778122';
+let qweatherKey = 'f066f70d77f049808a3c858fdb869ff3';
 export let tencentLocationKey = 'TZBBZ-EN2CB-PEVU5-JOQ7F-DMMX2-UZBFJ';
 export let getLocation = 'https://apis.map.qq.com/ws/location/v1/ip';
 let getCityCode = 'https://geoapi.qweather.com/v2/city/lookup';
