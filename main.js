@@ -21,13 +21,39 @@ jsonp({
 		output: 'jsonp',
 	},
 	success: async function (result) {
-		// 取到从腾讯位置信息api的当前地理位置信息，然后根据地理位置信息获取城市代码，然后渲染首页天气
-		let res = await getCityCode(result.ad_info.district);
-		document.querySelector('.location-word > span').innerHTML = `${res[0].adm1} ${res[0].adm2} ${res[0].name}`;
-		fn.rander(res[0].id);
+		let district = result.ad_info.district;
+		let city = result.ad_info.city.split('市')[0];
+		let province = result.ad_info.province;
 
-		console.log(result);
-		console.log(res);
+		let searchResults = await getCityCode(result.ad_info.district);
+		let cityCode = 0;
+		let matchLevel = 0; // 匹配等级，0 未匹配，1 匹配省，2 匹配省+市，3 匹配省+市+区
+		// 把定位出来的和和风天气模糊搜索出来的逐级匹配，选择匹配最成功的是真实地址
+		for (let i = 0; i < searchResults.length; i++) {
+			// 匹配省
+			if (searchResults[i].adm1 === province && matchLevel < 1) {
+				cityCode = searchResults[i].id;
+				matchLevel = 1;
+			}
+			// 匹配省+市
+			if (searchResults[i].adm1 === province && searchResults[i].adm2 === city && matchLevel < 2) {
+				cityCode = searchResults[i].id;
+				matchLevel = 2;
+			}
+			// 匹配省+市+区
+			if (searchResults[i].adm1 === province && searchResults[i].adm2 === city && searchResults[i].name === district && matchLevel < 3) {
+				cityCode = searchResults[i].id;
+				matchLevel = 3;
+				break;
+			}
+		}
+		if (cityCode === 0) {
+			alert('定位失败，请手动选择城市');
+			return;
+		}
+
+		document.querySelector('.location-word > span').innerHTML = `${province} ${city} ${district}`;
+		fn.rander(cityCode);
 	},
 });
 
