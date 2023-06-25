@@ -4,6 +4,8 @@ import { tencentLocationKey } from './js/API.js';
 import { getLocation } from './js/API.js';
 import { jsonp } from './js/getCity.js';
 import { getCityCode } from './js/getCity.js';
+import { getMatchedCityCode } from './js/getCity.js';
+
 let mainDOM = document.querySelector('.main');
 let searchDOM = document.querySelector('.search');
 let locationDOM = document.querySelector('.location-word');
@@ -25,34 +27,15 @@ jsonp({
 		let city = result.ad_info.city.split('市')[0];
 		let province = result.ad_info.province;
 
-		let searchResults = await getCityCode(result.ad_info.district);
-		let cityCode = 0;
-		let matchLevel = 0; // 匹配等级，0 未匹配，1 匹配省，2 匹配省+市，3 匹配省+市+区
-		// 把定位出来的和和风天气模糊搜索出来的逐级匹配，选择匹配最成功的是真实地址
-		for (let i = 0; i < searchResults.length; i++) {
-			// 匹配省
-			if (searchResults[i].adm1 === province && matchLevel < 1) {
-				cityCode = searchResults[i].id;
-				matchLevel = 1;
-			}
-			// 匹配省+市
-			if (searchResults[i].adm1 === province && searchResults[i].adm2 === city && matchLevel < 2) {
-				cityCode = searchResults[i].id;
-				matchLevel = 2;
-			}
-			// 匹配省+市+区
-			if (searchResults[i].adm1 === province && searchResults[i].adm2 === city && searchResults[i].name === district && matchLevel < 3) {
-				cityCode = searchResults[i].id;
-				matchLevel = 3;
-				break;
-			}
-		}
+		let cityCode = await getMatchedCityCode(province, city, district);
+
 		if (cityCode === 0) {
 			alert('定位失败，请手动选择城市');
 			return;
 		}
 
-		document.querySelector('.location-word > span').innerHTML = `${province} ${city} ${district}`;
+		let displayLocation = district ? `${province} ${city} ${district}` : `${province} ${city}`;
+		document.querySelector('.location-word > span').innerHTML = displayLocation;
 		fn.rander(cityCode);
 	},
 });
