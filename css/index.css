@@ -444,7 +444,7 @@ img {
 	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.43);
 	backdrop-filter: blur(2px);
-
+	-webkit-backdrop-filter: blur(2px);
 	display: none;
 }
 

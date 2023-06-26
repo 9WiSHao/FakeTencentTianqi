@@ -46,31 +46,45 @@ export function jsonp(options) {
 }
 
 // 通过省市区来匹配城市代码（主要原因是因为和风天气获取城市是模糊搜索，跟地址api的不一定完全匹配）
-export async function getMatchedCityCode(province, city, district) {
+export async function getMatchedCity(province, city, district) {
 	let searchKeyword = district ? district : city;
 	let searchResults = await getCityCode(searchKeyword);
 
-	let cityCode = 0;
+	let cityMatched = {
+		province: province,
+		city: city,
+		district: district,
+		cityCode: 0,
+	};
 	let matchLevel = 0;
 
 	for (let i = 0; i < searchResults.length; i++) {
 		// 匹配省
 		if (searchResults[i].adm1 === province && matchLevel < 1) {
-			cityCode = searchResults[i].id;
+			cityMatched.province = searchResults[i].adm1;
+			cityMatched.city = searchResults[i].adm2;
+			cityMatched.district = searchResults[i].name;
+			cityMatched.cityCode = searchResults[i].id;
 			matchLevel = 1;
 		}
 		// 匹配省+市
 		if (searchResults[i].adm1 === province && searchResults[i].adm2 === city && matchLevel < 2) {
-			cityCode = searchResults[i].id;
+			cityMatched.province = searchResults[i].adm1;
+			cityMatched.city = searchResults[i].adm2;
+			cityMatched.district = searchResults[i].name;
+			cityMatched.cityCode = searchResults[i].id;
 			matchLevel = 2;
 		}
 		// 匹配省+市+区
 		if (district && searchResults[i].adm1 === province && searchResults[i].adm2 === city && searchResults[i].name === district && matchLevel < 3) {
-			cityCode = searchResults[i].id;
+			cityMatched.province = searchResults[i].adm1;
+			cityMatched.city = searchResults[i].adm2;
+			cityMatched.district = searchResults[i].name;
+			cityMatched.cityCode = searchResults[i].id;
 			matchLevel = 3;
 			break;
 		}
 	}
 
-	return cityCode;
+	return cityMatched;
 }

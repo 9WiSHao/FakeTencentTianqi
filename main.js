@@ -4,7 +4,7 @@ import { tencentLocationKey } from './js/API.js';
 import { getLocation } from './js/API.js';
 import { jsonp } from './js/getCity.js';
 import { getCityCode } from './js/getCity.js';
-import { getMatchedCityCode } from './js/getCity.js';
+import { getMatchedCity } from './js/getCity.js';
 
 let mainDOM = document.querySelector('.main');
 let searchDOM = document.querySelector('.search');
@@ -27,16 +27,16 @@ jsonp({
 		let city = result.ad_info.city.split('市')[0];
 		let province = result.ad_info.province;
 
-		let cityCode = await getMatchedCityCode(province, city, district);
+		let cityMatched = await getMatchedCity(province, city, district);
 
-		if (cityCode === 0) {
+		if (cityMatched.cityCode === 0) {
 			alert('定位失败，请手动选择城市');
 			return;
 		}
 
-		let displayLocation = district ? `${province} ${city} ${district}` : `${province} ${city}`;
+		let displayLocation = district ? `${cityMatched.province} ${cityMatched.city} ${cityMatched.district}` : `${cityMatched.province} ${cityMatched.city}`;
 		document.querySelector('.location-word > span').innerHTML = displayLocation;
-		fn.rander(cityCode);
+		fn.rander(cityMatched.cityCode);
 	},
 });
 
