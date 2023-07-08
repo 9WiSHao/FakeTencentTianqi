@@ -63,6 +63,9 @@ export class SetInformation {
 			this.suggestDialogDOM.style.display = 'block';
 			this.maskDOM.style.display = 'block';
 			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
+
+			// 根据要渲染的内容的高度，调整对话框高度让他居中
+			this.suggestDialogDOM.style.marginTop = `-${this.suggestDialogDOM.offsetHeight / 2}px`;
 		});
 		// 退出生活指数对话框
 		let exitSuggestDialogHandler = () => {
@@ -108,6 +111,7 @@ export class SetInformation {
 			let message = e.target.closest('.warning-message1').dataset.text;
 			let color = e.target.closest('.warning-message1').dataset.color;
 
+			// 这是因为黄色预警那颜色太特么丑了，当文字背景色就看不清字，就换了
 			if (color == 'Yellow') {
 				color = '#f5d271';
 			}
@@ -120,6 +124,9 @@ export class SetInformation {
 			this.suggestDialogDOM.style.display = 'block';
 			this.maskDOM.style.display = 'block';
 			this.suggestDialogDOM.style.animation = 'scroll-up3 0.3s ease-in-out';
+
+			// 根据要渲染的内容的高度，调整对话框高度让他居中
+			this.suggestDialogDOM.style.marginTop = `-${this.suggestDialogDOM.offsetHeight / 2}px`;
 		});
 
 		// 退出预警对话框
@@ -146,6 +153,10 @@ export class SetInformation {
 		this.mainWeatherTextDOM.innerHTML = json.now.text;
 		this.mainHumidityDOM.innerHTML = `湿度 ${json.now.humidity}%`;
 		this.mainWindDOM.innerHTML = `${json.now.windDir} ${json.now.windScale}级`;
+		// 根据要渲染的文字让他们水平居中
+		this.mainHumidityDOM.style.marginLeft = `-${this.mainHumidityDOM.offsetWidth / 2}px`;
+		this.mainWindDOM.style.marginLeft = `-${this.mainWindDOM.offsetWidth / 2}px`;
+
 		this.greetingDOM.innerHTML = '假装这是一句相关天气的问候语';
 	};
 

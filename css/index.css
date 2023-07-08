@@ -195,11 +195,11 @@ img {
 }
 .main-page > .top > .humidity-wind > .humidity {
 	white-space: nowrap;
-	margin-left: 15%;
+	left: 50%;
 }
 .main-page > .top > .humidity-wind > .wind {
 	white-space: nowrap;
-	margin-left: 11%;
+	left: 50%;
 	opacity: 0;
 	transform: translateY(100%);
 	animation-delay: 5s; /* 风向动画延迟，确保湿度消失后开始 */
@@ -453,7 +453,7 @@ img {
 	margin-left: -30vw;
 	z-index: 1000;
 	left: 50%;
-	top: 40%;
+	top: 50%;
 
 	border-radius: 8px;
 	background: #fff;
