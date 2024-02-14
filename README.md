@@ -29,4 +29,4 @@
 - 原生 js 完成
 - 图表使用 Echarts 库完成
 - 功能由类封装功能，然后监听 hash 变化，传入新数据
-- 上传至 github page 页面，https://wishao.me/FakeTencentTianqi/ 因为用了 module，所以在本地运行的话需要用 live server 插件打开
+- 上传至 github page 页面，https://wishao.fun/FakeTencentTianqi/ 因为用了 module，所以在本地运行的话需要用 live server 插件打开
